@@ -25,50 +25,28 @@ function isValidEmail(email) {
     return re.test(String(email).toLowerCase());
 }
 
+// check required fields
+function checkRequired(inputArr) {
+    inputArr.forEach(function (input) {
+        if (input.value.trim() === '') {
+            showError(input, `${getFiledName(input)} is required`);
+        } else {
+            showSuccess(input);
+        }
+    });
+}
 
-// Event Listeners for username
+// get filed name with the first letter capitalized
+function getFiledName(input) {
+    return input.id.charAt(0).toUpperCase() + input.id.slice(1);
+}
+
+
+// Event Listeners 
 form.addEventListener('submit', function (e) {
     e.preventDefault();
 
-    if (username.value === '') {
-        showError(username, 'Username is required');
-    } else {
-        showSuccess(username);
-    }
+    checkRequired([username, email, password, password2]);
 });
 
-// Event Listeners for email
-form.addEventListener('submit', function (e) {
-    e.preventDefault();
-
-    if (email.value === '') {
-        showError(email, 'email is required');
-    } else if (!isValidEmail(email.value)) {
-        showError(email, 'email is not valid')
-    } else {
-        showSuccess(email);
-    }
-});
-
-// Event Listeners for password
-form.addEventListener('submit', function (e) {
-    e.preventDefault();
-
-    if (password.value === '') {
-        showError(password, 'Password is required');
-    } else {
-        showSuccess(password);
-    }
-});
-
-// Event Listeners for password2
-form.addEventListener('submit', function (e) {
-    e.preventDefault();
-
-    if (password2.value === '') {
-        showError(password2, 'Please confirm the password');
-    } else {
-        showSuccess(password2);
-    }
-});
 
